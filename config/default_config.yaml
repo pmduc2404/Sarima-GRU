@@ -1,0 +1,36 @@
+# SARIMA-GRU Configuration
+
+# Data settings
+data:
+  sequence_length: 48
+  target_column: "Lake water level (m)"
+  test_split: 0.2
+  batch_size: 32
+  num_workers: 4
+
+# Model settings
+model:
+  input_size: null  # Will be determined from data
+  hidden_size: 64
+  output_size: 1
+  num_layers: 3
+  seasonal_period: 24
+
+# Training settings
+training:
+  num_epochs: 200
+  learning_rate: 0.0005
+  weight_decay: 1e-5
+  patience: 10
+  factor: 0.5
+
+# Device settings
+device:
+  type: "cuda"  # "cuda" or "cpu"
+  use_multiple_gpu: false
+
+# Logging settings
+logging:
+  log_interval: 10
+  save_checkpoint: true
+  checkpoint_dir: "./models/checkpoints"
