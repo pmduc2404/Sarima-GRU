@@ -76,7 +76,7 @@ Time,Lake water level (m),Outflow,Inflow
 2019-01-01 00:00:00,15.2,25.3,10.5
 ```
 
-📬 Data Availability
+## 📬 Data Availability
 
 The dataset used in this study is not publicly available due to data-sharing restrictions.
 Researchers interested in accessing the data for academic purposes may contact the authors via email:
