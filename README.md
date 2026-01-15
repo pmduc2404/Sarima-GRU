@@ -14,16 +14,6 @@ pip install -r requirements.txt
 python3 scripts/train.py --num_epochs 100 --batch_size 32
 ```
 
-### Test
-```bash
-python3 scripts/test.py --model_path sarima_gru_model.pth --data_path DataSet/AnKhe.csv
-```
-
-### Evaluate
-```bash
-python3 scripts/evaluate.py --model_path sarima_gru_model.pth --data_path DataSet/AnKhe.csv
-```
-
 ## 📁 Structure
 
 ```
