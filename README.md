@@ -76,15 +76,12 @@ Time,Lake water level (m),Outflow,Inflow
 2019-01-01 00:00:00,15.2,25.3,10.5
 ```
 
-## 🔧 Parameters
+📬 Data Availability
 
-| Parameter | Default |
-|-----------|---------|
-| `--num_epochs` | 100 |
-| `--batch_size` | 64 |
-| `--learning_rate` | 0.001 |
-| `--hidden_size` | 32 |
-| `--num_layers` | 2 |
+The dataset used in this study is not publicly available due to data-sharing restrictions.
+Researchers interested in accessing the data for academic purposes may contact the authors via email:
+
+📧 Email: pmduc2808@gmail.com
 
 ## 🎯 Commands
 
