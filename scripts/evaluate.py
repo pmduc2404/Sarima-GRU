@@ -88,7 +88,7 @@ def evaluate_model(model, test_loader, device):
     predictions = []
     actuals = []
     
-    print("\n📊 Evaluating model...")
+    print("\n Evaluating model...")
     with torch.no_grad():
         for i, (batch_x, batch_y) in enumerate(test_loader):
             batch_x = batch_x.to(device)
@@ -208,29 +208,29 @@ INTERPRETATION
 """
     
     if metrics['R²'] > 0.9:
-        report += "✓ Excellent model fit (R² > 0.9)\n"
+        report += "Excellent model fit (R² > 0.9)\n"
     elif metrics['R²'] > 0.7:
-        report += "✓ Good model fit (R² > 0.7)\n"
+        report += "Good model fit (R² > 0.7)\n"
     elif metrics['R²'] > 0.5:
-        report += "⚠ Moderate model fit (R² > 0.5)\n"
+        report += "Moderate model fit (R² > 0.5)\n"
     else:
-        report += "✗ Poor model fit (R² < 0.5)\n"
+        report += "Poor model fit (R² < 0.5)\n"
     
     if metrics['MAPE'] < 0.05:
-        report += "✓ Excellent accuracy (MAPE < 5%)\n"
+        report += "Excellent accuracy (MAPE < 5%)\n"
     elif metrics['MAPE'] < 0.10:
-        report += "✓ Good accuracy (MAPE < 10%)\n"
+        report += "Good accuracy (MAPE < 10%)\n"
     elif metrics['MAPE'] < 0.20:
-        report += "⚠ Moderate accuracy (MAPE < 20%)\n"
+        report += "Moderate accuracy (MAPE < 20%)\n"
     else:
-        report += "✗ Poor accuracy (MAPE > 20%)\n"
+        report += "Poor accuracy (MAPE > 20%)\n"
     
     if metrics['Directional Accuracy'] > 0.7:
-        report += "✓ Excellent directional accuracy (>70%)\n"
+        report += "Excellent directional accuracy (>70%)\n"
     elif metrics['Directional Accuracy'] > 0.6:
-        report += "⚠ Moderate directional accuracy (>60%)\n"
+        report += "Moderate directional accuracy (>60%)\n"
     else:
-        report += "✗ Poor directional accuracy (<60%)\n"
+        report += "Poor directional accuracy (<60%)\n"
     
     report += "\n" + "="*70 + "\n"
     
@@ -336,7 +336,7 @@ def plot_comprehensive_evaluation(predictions, actuals, residuals, output_dir):
     
     plt.tight_layout()
     plt.savefig(os.path.join(output_dir, '02_error_analysis.png'), dpi=300, bbox_inches='tight')
-    print(f"  ✓ Error analysis plot saved")
+    print(f"Error analysis plot saved")
     plt.close()
 
 
@@ -354,17 +354,17 @@ def main():
     
     # Setup
     device = torch.device(args.device if torch.cuda.is_available() else 'cpu')
-    print(f"\n✓ Device: {device}")
+    print(f"\nDevice: {device}")
     os.makedirs(args.output_dir, exist_ok=True)
     
     # Load model and data
-    print(f"\n🔧 Loading model...")
+    print(f"\n Loading model...")
     model, checkpoint = load_model(args.model_path, device)
     print("✓ Model loaded")
     
-    print(f"\n📊 Loading data...")
+    print(f"\nLoading data...")
     if not os.path.exists(args.data_path):
-        print(f"❌ Data not found: {args.data_path}")
+        print(f"Data not found: {args.data_path}")
         return
     
     _, test_dataset, _ = prepare_data(
@@ -373,14 +373,14 @@ def main():
         target_column=args.target_column
     )
     test_loader = DataLoader(test_dataset, batch_size=args.batch_size, shuffle=False)
-    print(f"✓ Data loaded: {len(test_dataset)} samples")
+    print(f"Data loaded: {len(test_dataset)} samples")
     
     # Evaluate
     predictions, actuals = evaluate_model(model, test_loader, device)
-    print(f"✓ Evaluation complete")
+    print(f"Evaluation complete")
     
     # Calculate metrics
-    print(f"\n📈 Calculating metrics...")
+    print(f"\nCalculating metrics...")
     metrics, residuals = calculate_comprehensive_metrics(predictions, actuals)
     
     # Print report
@@ -391,7 +391,7 @@ def main():
     report_path = os.path.join(args.output_dir, 'evaluation_report.txt')
     with open(report_path, 'w') as f:
         f.write(report)
-    print(f"✓ Report saved: {report_path}")
+    print(f"Report saved: {report_path}")
     
     # Save predictions
     if args.save_report:
@@ -403,15 +403,15 @@ def main():
             'Pct_Error': np.abs(residuals) / np.abs(actuals) * 100
         })
         df.to_csv(args.save_report, index=False)
-        print(f"✓ Detailed predictions saved: {args.save_report}")
+        print(f"Detailed predictions saved: {args.save_report}")
     
     # Create plots
     if args.detailed_report:
-        print(f"\n📊 Creating detailed plots...")
+        print(f"\nCreating detailed plots...")
         plot_comprehensive_evaluation(predictions, actuals, residuals, args.output_dir)
-        print(f"✓ Plots saved to {args.output_dir}")
+        print(f"Plots saved to {args.output_dir}")
     
-    print(f"\n✓ Evaluation complete!")
+    print(f"\nEvaluation complete!")
 
 
 if __name__ == '__main__':

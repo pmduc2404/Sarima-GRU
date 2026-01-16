@@ -64,7 +64,7 @@ Examples:
 def load_model(checkpoint_path, device):
     """Load trained model from checkpoint"""
     if not os.path.exists(checkpoint_path):
-        print(f"❌ Error: Model checkpoint not found at {checkpoint_path}")
+        print(f"Error: Model checkpoint not found at {checkpoint_path}")
         return None, None
     
     checkpoint = torch.load(checkpoint_path, map_location=device)
@@ -82,7 +82,7 @@ def test_model(model, test_loader, device):
     predictions = []
     actuals = []
     
-    print("\n🧪 Testing model...")
+    print("\nTesting model...")
     with torch.no_grad():
         for i, (batch_x, batch_y) in enumerate(test_loader):
             batch_x = batch_x.to(device)
@@ -189,19 +189,19 @@ def main():
     
     # Device setup
     device = torch.device(args.device if torch.cuda.is_available() else 'cpu')
-    print(f"\n✓ Using device: {device}")
+    print(f"\nUsing device: {device}")
     
     # Load model
-    print(f"\n🔧 Loading model from {args.model_path}...")
+    print(f"\nLoading model from {args.model_path}...")
     model, checkpoint = load_model(args.model_path, device)
     if model is None:
         return
-    print("✓ Model loaded successfully!")
+    print("Model loaded successfully!")
     
     # Load data
-    print(f"\n📊 Loading test data from {args.data_path}...")
+    print(f"\nLoading test data from {args.data_path}...")
     if not os.path.exists(args.data_path):
-        print(f"❌ Error: Data file not found at {args.data_path}")
+        print(f"Error: Data file not found at {args.data_path}")
         return
     
     try:
@@ -211,7 +211,7 @@ def main():
             target_column=args.target_column
         )
     except Exception as e:
-        print(f"❌ Error loading data: {e}")
+        print(f"Error loading data: {e}")
         return
     
     # Create test loader
@@ -220,15 +220,15 @@ def main():
         batch_size=args.batch_size,
         shuffle=False
     )
-    print(f"✓ Test data loaded: {len(test_dataset)} samples")
+    print(f"Test data loaded: {len(test_dataset)} samples")
     
     # Test model
     try:
         predictions, actuals = test_model(model, test_loader, device)
-        print(f"✓ Testing complete: {len(predictions)} predictions")
+        print(f"Testing complete: {len(predictions)} predictions")
         
         # Calculate metrics
-        print(f"\n📊 Calculating metrics...")
+        print(f"\n Calculating metrics...")
         metrics = calculate_metrics(predictions, actuals)
         
         # Print results
@@ -262,11 +262,11 @@ def main():
         
         # Plot results if requested
         if args.plot_results:
-            print(f"\n📈 Creating visualization...")
+            print(f"\n Creating visualization...")
             plot_results(predictions, actuals, save_path='results/test_results.png')
         
     except Exception as e:
-        print(f"\n❌ Error during testing: {e}")
+        print(f"\n Error during testing: {e}")
         import traceback
         traceback.print_exc()
 
